@@ -13,6 +13,11 @@
 			<a class="navbar-brand" href="<c:url value="/"/>">Home</a>
 		</li>
 	</ul>
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="navbar-brand" href="<c:url value="/"/>">로그인</a>
+		</li>
+	</ul>
 </nav>
 </body>
 </html>

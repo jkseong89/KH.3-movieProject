@@ -74,3 +74,6 @@ CREATE TABLE `ticketing_list` (
 	`tl_se_num`	int	NOT NULL
 );
 
+ALTER TABLE `moviedb_team3`.`member` 
+CHANGE COLUMN `me_authority` `me_authority` VARCHAR(5) NULL DEFAULT 'USER' ;
+
