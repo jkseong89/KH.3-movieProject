@@ -152,7 +152,8 @@
 			<c:forEach var="seatList" items="${seatList_byLine}">
 				<div class="row">
 					<c:forEach var="seat" items="${seatList}">
-						<div class="seat" id="${seat.se_name}"></div>
+						<div class="seat" id="${seat.se_name}">
+						</div>
 					</c:forEach>
 				</div>
 			</c:forEach>
@@ -222,7 +223,7 @@
 	
 		// Movie select event
 		movieSelect.addEventListener('change', e => {
-		  ticketPrice = +e.target.value;
+		  ticketPrice =+ e.target.value;
 		  setMovieData(e.target.selectedIndex, e.target.value);
 		  updateSelectedCount();
 		});
@@ -234,37 +235,24 @@
 		    !e.target.classList.contains('occupied')
 		  ) {
 		    e.target.classList.toggle('selected');
-	
+		    
+		    console.log(e.target.child);
+		    e.target.appendChild(`
+	    		<input type="hidden" name="selectedSeat">
+   			 `);
+/* 		    e.target.child.insertAdjacentHTML('afterend', `
+					    	<input type="hidden" name="selectedSeat">
+				    `) */
+		    /* $(this).appendChild(`
+					    	<input type="hidden" name="selectedSeat">
+				    `); */
 		    updateSelectedCount();
 		  }
 		});
 		
-		$(document).on('click', '.btn', function(){
-			const selectedList = document.querySelectorAll('.row .selected');
-			const arr = [];
-
-			for (const i of selectedList) {
-				arr.push(i.id)
-			}
-			
+		$(document).on('click', '.btn', function(){			
 			alert(3);
 			console.log(arr);
-			$.ajax({
-				async : true, 
-				url : '<c:url value="/ticketing/scheduleList"/>', 
-				type : 'post', 
-				data : {"arr" : arr},
-				dataType : 'json',
-				traditional : true,
-				contentType : "application/json; charset=utf-8",
-				success : function (data){
-					alert(1);
-				}, 
-				error : function(jqXHR, textStatus, errorThrown){
-					console.log(jqXHR)
-					alert(2);
-				}
-			});
 		})
 	
 		// Initial count and total set
