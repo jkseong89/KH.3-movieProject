@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
 	<style type="text/css">
 	.btn-custom {
 		height: 250px;
@@ -30,7 +29,5 @@
 	<a href="<c:url value="/ticketing/movieList"/>" class="btn-custom btn-1 btn btn-success">예매</a>
 
 	<a href="<c:url value="/refund/ticketingList"/>" class="btn-custom btn-2 btn btn-warning">환불</a>
-<h1>
-</h1>
 </body>
 </html>
