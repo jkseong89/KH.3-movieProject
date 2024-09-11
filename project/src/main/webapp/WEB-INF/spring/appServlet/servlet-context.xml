@@ -55,37 +55,19 @@
 	</beans:bean>
 	
 	<!-- 인터셉터 등록 -->
-	<!-- <beans:bean id="adminInterceptor" class="kr.kh.spring.interceptor.AdminInterceptor"/> -->
+	<beans:bean id="loginInterceptor" class="kr.kh.spring.interceptor.LoginInterceptor"/>
+	<beans:bean id="prevUrlInterceptor" class="kr.kh.spring.interceptor.PrevUrlInterceptor"/>
+	
 	<!-- 인터셉터 맵핑 -->
-<!-- 	<interceptors>
+	<interceptors>
 		<interceptor>
-			<mapping path="/admin/**"/>
-			<beans:ref bean="adminInterceptor"/>
+			<mapping path="/guest/login"/>
+			<mapping path="/ticketing/ticketing"/>
+			<beans:ref bean="prevUrlInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/post/insert"/>
-			<mapping path="/post/update"/>
-			<mapping path="/post/delete"/>
-			<beans:ref bean="memberInterceptor"/>
-		</interceptor>
-		<interceptor>
-			<mapping path="/post/insert"/>
-			<mapping path="/post/update"/>
-			<mapping path="/post/delete"/>
-			<beans:ref bean="memberInterceptor"/>
-		</interceptor>
-		<interceptor>
-			<mapping path="/login"/>
-			<mapping path="/signup"/>
-			<beans:ref bean="guestInterceptor"/>
-		</interceptor>
-		<interceptor>
-			<mapping path="/login"/>
+			<mapping path="/guest/login"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
-		<interceptor>
-			<mapping path="/**"/>
-			<beans:ref bean="autoLoginInterceptor"/>
-		</interceptor>
-	</interceptors> -->
+	</interceptors>
 </beans:beans>

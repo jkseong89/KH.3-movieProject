@@ -145,13 +145,13 @@ body {
         grid-template-columns: 1fr;
     }
 }
-/* .footer {
+.footer {
     background-color: #333333;
     color: #ffffff;
     text-align: center;
     padding: 20px 0;
-    // position: fixed; 고정 위치 속성 삭제 
-    bottom: 0; //고정 위치 관련 속성 삭제 
+    /* position: fixed; */ /* 고정 위치 속성 삭제 */
+    bottom: 0; /* 고정 위치 관련 속성 삭제 */
     width: 100%;
     border-top: 1px solid #e0e0e0;
 }
@@ -179,7 +179,7 @@ body {
     margin: 0 10px;
     font-size: 1em;
     font-weight: normal;
-} */
+}
 .movie-carousel {
    position: relative;
     width: 100%;
@@ -250,33 +250,29 @@ body {
     <div class="carousel-wrapper">
         <div class="carousel">
             <c:forEach var="movie" items="${list}">
-			    <div class="movie-card">
-			        <!-- 영화 상세 페이지 링크에 mo_num 삽입 -->
-			        <a href="<c:url value='/main/moviedetail?mo_num=${movie.mo_num}'/>">
-			            <!-- 포스터 이미지 삽입 -->
-			            <img src="${movie.mo_image }" alt="영화 포스터 ${movie.mo_num}">
-			        </a>
-			        <div class="content">
-			            <!-- 영화 제목 삽입 -->
-			            <h3>${movie.mo_title}</h3>
-			            <!-- 영화 장르와 개봉일 삽입 -->
-			            <p>${movie.mo_genre} | <fmt:formatDate value="${movie.mo_date }" pattern="yyyy-MM-dd"/></p>
-			            <!-- 예매하기 링크에 mo_num 삽입 -->
-			            
-						<form action="<c:url value="/ticketing/screen"/>"method="post">
-				            <button type="submit" class="button" >예매하기</button>
-				           	<input type="hidden" name="mo_num" value="${movie.mo_num}">
-						</form>
-			        </div>
-			    </div>
-			</c:forEach>
+		    <div class="movie-card">
+		        <!-- 영화 상세 페이지 링크에 mo_num 삽입 -->
+		        <a href="<c:url value='/main/moviedetail?mo_num=${movie.mo_num}'/>">
+		            <!-- 포스터 이미지 삽입 -->
+		            <img src="${movie.mo_image }" alt="영화 포스터 ${movie.mo_num}">
+		        </a>
+		        <div class="content">
+		            <!-- 영화 제목 삽입 -->
+		            <h3>${movie.mo_title}</h3>
+		            <!-- 영화 장르와 개봉일 삽입 -->
+		            <p>${movie.mo_genre} | <fmt:formatDate value="${movie.mo_date }" pattern="yyyy-MM-dd"/></p>
+		            <!-- 예매하기 링크에 mo_num 삽입 -->
+		            <a href="#" class="button">예매하기</a>
+		        </div>
+		    </div>
+</c:forEach>
         </div>     
     </div>
     <button class="carousel-control prev">‹</button>
     <button class="carousel-control next">›</button>
 </section>
  </div>
-    <!-- <footer class="footer">
+    <footer class="footer">
     <div class="footer-content">
         <p>Team Members:</p>
         <ul class="team-list">
@@ -286,7 +282,7 @@ body {
             <li>박광균</li>
         </ul>
     </div>
-</footer> -->
+</footer>
 <script>
 const carousel = document.querySelector('.carousel');
 const prevButton = document.querySelector('.carousel-control.prev');
@@ -308,15 +304,6 @@ prevButton.addEventListener('click', () => {
 });
 
 nextButton.addEventListener('click', () => {
-
-    if (currentIndex < carousel.children.length - visibleCards) { // 카드가 3개씩 보일 때
-        currentIndex++;
-        updateCarousel();
-    }
-});
-
-nextButton.addEventListener('click', () => {
-
     if (currentIndex < carousel.children.length - visibleCards) { // 카드가 3개씩 보일 때
         currentIndex++;
         updateCarousel();

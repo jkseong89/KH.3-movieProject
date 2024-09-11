@@ -9,4 +9,13 @@
 	<select id="selectSeatList" resultType="SeatVO">
 		select * from seat where se_sc_num = #{sc_num}
 	</select>
+	<select id="selectScreen" resultType="ScreenVO">
+		select * from screen where sc_num = #{sc_num}
+	</select>
+	<select id="selectScheduleList" resultType="ScheduleVO">
+		select *
+		from schedule
+		where sd_mo_num = #{mo_num}
+		and sd_sc_num = #{sc_num}
+	</select>
 </mapper>

@@ -4,123 +4,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style type="text/css">
-		@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-	
-		.top-container {
-		  box-sizing: border-box;
-		}
-		
-		.top-container {
-		  background-color: #242333;
-		  color: #fff;
-		  display: flex;
-		  flex-direction: column;
-		  align-items: center;
-		  justify-content: center;
-		  height: 100vh;
-		  font-family: 'Lato', sans-serif;
-		  margin: 0;
-		}
-		
-		.movie-container {
-		  margin: 20px 0;
-		}
-		
-		.movie-container select {
-		  background-color: #fff;
-		  border: 0;
-		  border-radius: 5px;
-		  font-size: 14px;
-		  margin-left: 10px;
-		  padding: 5px 15px 5px 15px;
-		  -moz-appearance: none;
-		  -webkit-appearance: none;
-		  appearance: none;
-		}
-		
-		.container {
-		  perspective: 1000px;
-		  margin-bottom: 30px;
-		}
-		
-		.seat {
-		  background-color: #444451;
-		  height: 12px;
-		  width: 15px;
-		  margin: 3px;
-		  border-top-left-radius: 10px;
-		  border-top-right-radius: 10px;
-		}
-		
-		.seat.selected {
-		  background-color: #6feaf6;
-		}
-		
-		.seat.occupied {
-		  background-color: #fff;
-		}
-		
-		.seat:nth-of-type(2) {
-		  margin-right: 18px;
-		}
-		
-		.seat:nth-last-of-type(2) {
-		  margin-left: 18px;
-		}
-		
-		.seat:not(.occupied):hover {
-		  cursor: pointer;
-		  transform: scale(1.2);
-		}
-		
-		.showcase .seat:not(.occupied):hover {
-		  cursor: default;
-		  transform: scale(1);
-		}
-		
-		.showcase {
-		  background: rgba(0, 0, 0, 0.1);
-		  padding: 5px 10px;
-		  border-radius: 5px;
-		  color: #777;
-		  list-style-type: none;
-		  display: flex;
-		  justify-content: space-between;
-		}
-		
-		.showcase li {
-		  display: flex;
-		  align-items: center;
-		  justify-content: center;
-		  margin: 0 10px;
-		}
-		
-		.showcase li small {
-		  margin-left: 2px;
-		}
-		
-		.row {
-		  display: flex;
-		}
-		
-		.screen {
-		  background-color: #fff;
-		  height: 70px;
-		  width: 100%;
-		  margin: 15px 0;
-		  transform: rotateX(-45deg);
-		  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
-		}
-		
-		p.text {
-		  margin: 5px 0;
-		}
-		
-		p.text span {
-		  color: #6feaf6;
-		}
-	</style>
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+.top-container {
+	box-sizing: border-box;
+}
+
+.top-container {
+	background-color: #242333;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	font-family: 'Lato', sans-serif;
+	margin: 0;
+}
+
+.movie-container {
+	margin: 20px 0;
+}
+
+.movie-container select {
+	background-color: #fff;
+	border: 0;
+	border-radius: 5px;
+	font-size: 14px;
+	margin-left: 10px;
+	padding: 5px 15px 5px 15px;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.container {
+	perspective: 1000px;
+	margin-bottom: 30px;
+}
+
+.seat {
+	background-color: #444451;
+	height: 12px;
+	width: 15px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.seat.selected {
+	background-color: #6feaf6;
+}
+
+.seat.occupied {
+	background-color: #fff;
+}
+
+.seat:nth-of-type(2) {
+	margin-right: 18px;
+}
+
+.seat:nth-last-of-type(2) {
+	margin-left: 18px;
+}
+
+.seat:not(.occupied):hover {
+	cursor: pointer;
+	transform: scale(1.2);
+}
+
+.showcase .seat:not(.occupied):hover {
+	cursor: default;
+	transform: scale(1);
+}
+
+.showcase {
+	background: rgba(0, 0, 0, 0.1);
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: #777;
+	list-style-type: none;
+	display: flex;
+	justify-content: space-between;
+}
+
+.showcase li {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 10px;
+}
+
+.showcase li small {
+	margin-left: 2px;
+}
+
+.row {
+	display: flex;
+}
+
+.screen {
+	background-color: #fff;
+	height: 70px;
+	width: 100%;
+	margin: 15px 0;
+	transform: rotateX(-45deg);
+	box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+p.text {
+	margin: 5px 0;
+}
+
+p.text span {
+	color: #6feaf6;
+}
+</style>
 </head>
 <body>
 	<div class="top-container">
@@ -148,26 +148,26 @@
 	
 		<div class="container">
 			<div class="screen"></div>
-			
-			<c:forEach var="seatList" items="${seatList_byLine}">
-				<div class="row">
-					<c:forEach var="seat" items="${seatList}">
-						<div class="seat" id="${seat.se_name}">
-						</div>
-					</c:forEach>
-				</div>
-			</c:forEach>
-		</div>
+			<form action="<c:url value="/ticketing/payment"/>" class="form-seat" method="post" enctype="multipart/form-data">
+				<c:forEach var="seatList" items="${seatList_byLine}">
+					<div class="row">
+						<c:forEach var="seat" items="${seatList}">
+							<div class="seat" id="${seat.se_name}"></div>
+						</c:forEach>
+					</div>
+				</c:forEach>
 	
-		<p class="text">
-	      You have selected <span id="count">0</span> seats for a price of $<span
-	        id="total"
-	        >0</span
-	      >
-	    </p>
-    </div>
+				<p class="text">
+					You have selected 
+					<span id="count">0</span> 
+					seats for a price of 
+					$<span id="total">0</span>
+			    </p>
     
-	<button class="btn btn-dark">버튼</button>
+				<button class="btn btn-dark">버튼</button>
+			</form>
+		</div>
+    </div>
 	
 	<script type="text/javascript">
 		const container = document.querySelector('.container');
@@ -230,30 +230,43 @@
 	
 		// Seat click event
 		container.addEventListener('click', e => {
-		  if (
-		    e.target.classList.contains('seat') &&
-		    !e.target.classList.contains('occupied')
-		  ) {
-		    e.target.classList.toggle('selected');
+		  if (e.target.classList.contains('seat') 
+			&& !e.target.classList.contains('occupied')) {
+			  
+			  if (e.target.classList.contains('selected')) {
+				  //e.target.removeChild(e.target.firstElementChild);
+				  e.target.replaceChildren();
+				  //e.target.innerHTML = "";
+				  //e.target.textContent = "";
+			  }
+			  else {
+				  const newP = document.createElement('p');
+				  const tmp = e.target.id;
+				  newP.innerHTML = `
+				  	<input type='hidden' name='selectedSeatList' value='\${e.target.id}'>
+				  `;
+				  e.target.appendChild(newP);
+			  }
+			  e.target.classList.toggle('selected');
+			  
+			  console.log(e.target.id);
+			  
+			  updateSelectedCount();
+			  
+			  // 실패작
+/*  		    e.target.appendChild(`
+		    		<input type='hidden' name='selectedSeat'>
+		    `); */
 		    
-		    console.log(e.target.child);
-		    e.target.appendChild(`
-	    		<input type="hidden" name="selectedSeat">
-   			 `);
-/* 		    e.target.child.insertAdjacentHTML('afterend', `
+/* 		    e.target.insertAdjacentHTML('afterend', `
 					    	<input type="hidden" name="selectedSeat">
 				    `) */
+				    
 		    /* $(this).appendChild(`
 					    	<input type="hidden" name="selectedSeat">
 				    `); */
-		    updateSelectedCount();
 		  }
 		});
-		
-		$(document).on('click', '.btn', function(){			
-			alert(3);
-			console.log(arr);
-		})
 	
 		// Initial count and total set
 		updateSelectedCount();
