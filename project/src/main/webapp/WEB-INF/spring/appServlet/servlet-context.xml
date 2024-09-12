@@ -62,7 +62,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/guest/login"/>
-			<mapping path="/ticketing/ticketing"/>
+			<mapping path="/ticketing/payment"/>
 			<beans:ref bean="prevUrlInterceptor"/>
 		</interceptor>
 		<interceptor>

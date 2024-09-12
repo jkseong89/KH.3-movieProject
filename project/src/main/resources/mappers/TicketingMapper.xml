@@ -18,4 +18,43 @@
 		where sd_mo_num = #{mo_num}
 		and sd_sc_num = #{sc_num}
 	</select>
+	<select id="selectSchedule" resultType="ScheduleVO">
+		select * from schedule where sd_num = #{sd_num}
+	</select>
+	<insert id="insertTicketing" useGeneratedKeys="true" keyProperty="ti_num">
+		insert into ticketing(ti_me_id, ti_sd_num)
+		values(#{ti_me_id}, #{ti_sd_num})
+	</insert>
+	<select id="selectSeat" resultType="SeatVO">
+		select * 
+		from seat 
+		<choose>
+			<when test="se_num == 0">
+				where se_name = #{se_name}
+				and se_sc_num = #{se_sc_num}
+			</when>
+			<otherwise>
+				where se_num = #{se_num}
+			</otherwise>
+		</choose>
+	</select>
+	<insert id="insertTicketing_list">
+		insert into ticketing_list(tl_ti_num, tl_se_num)
+		values(#{ti_num}, #{se_num})
+	</insert>
+	<select id="selectTicketing_listList" resultType="Ticketing_listVO">
+		select * from ticketing_list
+	</select>
+	<select id="selectTicketingList" resultType="TicketingVO">
+		select * from ticketing where ti_me_id = #{me_id}
+	</select>
+	<select id="selectMovie" resultType="MovieVO">
+		select * from movie where mo_num = #{mo_num}
+	</select>
+	<select id="selectTicketing_list" resultType="Ticketing_listVO">
+		select * from ticketing_list where tl_ti_num = #{ti_num}
+	</select>
+	<delete id="deleteTicketing_list">
+		delete from ticketing_list where tl_num = #{tl_num}
+	</delete>
 </mapper>

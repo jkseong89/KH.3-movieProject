@@ -14,26 +14,31 @@
 	.error.id-ok{
 		color : green;
 	}
+	.task {
+		margin-top: 60px;
+		margin-bottom: 20px;
+	}
 	</style>
 </head>
-<body>
-	
+<body>	
 	<h1>회원가입</h1>
-	<form action="<c:url value="/guest/signup"/>" method="post" id="form">
-		<div class="form-group">
-			<label for="id">아이디:</label>
-			<input type="text" class="form-control" id="id" name="me_id">
-		</div>
-		<div class="form-group">
-			<label for="pw">비번:</label>
-			<input type="password" class="form-control" id="pw" name="me_pw">
-		</div>
-		<div class="form-group">
-			<label for="pw2">비번 확인:</label>
-			<input type="password" class="form-control" id="pw2" name="me_pw2">
-		</div>
-		<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
-	</form>
+	<div class="task">
+		<form action="<c:url value="/guest/signup"/>" method="post" id="form">
+			<div class="form-group">
+				<label for="id">아이디:</label>
+				<input type="text" class="form-control" id="id" name="me_id">
+			</div>
+			<div class="form-group">
+				<label for="pw">비번:</label>
+				<input type="password" class="form-control" id="pw" name="me_pw">
+			</div>
+			<div class="form-group">
+				<label for="pw2">비번 확인:</label>
+				<input type="password" class="form-control" id="pw2" name="me_pw2">
+			</div>
+			<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
+		</form>
+	</div>
 	<script type="text/javascript">
 	var flag = false;
 	

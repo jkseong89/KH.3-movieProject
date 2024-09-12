@@ -5,11 +5,16 @@
 <html>
 <head>
 <style type="text/css">
-.task_2 {
-	margin: 0;
+.task_2 * {
 	padding: 0;
+	margin: 0;
 	box-sizing: border-box;
 	font-family: sans-serif;
+}
+
+.task_2 {
+	margin-top: 100px;
+	margin-bottom: 20px;
 }
 
 .box {
@@ -78,16 +83,16 @@
 </style>
 </head>
 <body>
-	<div class="task_2">
+	<div class="task_2 d-flex justify-content-center">
 		<div class="box">
 			<h2>상영관 선택(호버 시 마우스 바꾸고 싶음)</h2>
 			<ul class="ul-tag">
 				<c:forEach var="item" items="${scheduleList}">
 					<li class="li-tag" >
 						<form action="<c:url value="/ticketing/seat"/>" class="form-seat" method="post">
-							<input type="hidden" name="scheduleVO" value="${item}">
+							<input type="hidden" name="sd_num" value="${item.sd_num}">
 						</form>
-						<span>${item.sd_num}</span>${item.sd_time} : ${item.sd_date}
+						<span>${item.sd_num}</span>${item.sd_time}
 					</li>
 				</c:forEach>
 			</ul>

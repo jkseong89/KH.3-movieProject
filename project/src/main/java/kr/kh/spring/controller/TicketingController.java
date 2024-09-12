@@ -2,7 +2,6 @@ package kr.kh.spring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,13 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.spring.model.dto.MessageDTO;
 import kr.kh.spring.model.vo.MemberVO;
+import kr.kh.spring.model.vo.MovieVO;
 import kr.kh.spring.model.vo.ScheduleVO;
 import kr.kh.spring.model.vo.ScreenVO;
 import kr.kh.spring.model.vo.SeatVO;
+import kr.kh.spring.model.vo.TicketingVO;
 import kr.kh.spring.service.TicketingService;
 import lombok.extern.log4j.Log4j;
 
@@ -46,8 +46,11 @@ public class TicketingController {
 	}
 	
 	@PostMapping("/ticketing/screen")
-	public String ticketingScreenPost(Model model, int mo_num) {
-		log.info("/ticketing/screen/post" + mo_num);
+	public String ticketingScreenPost(Model model, int mo_num, HttpSession session) {
+		log.info("/ticketing/screen/post : " + mo_num);
+		
+		MovieVO movieVO = ticketingService.getMovie(mo_num);		
+		session.setAttribute("movieVO", movieVO);
 		
 		List<ScreenVO> screenList = ticketingService.getScreenList();
 		
@@ -64,30 +67,28 @@ public class TicketingController {
 		
 		return "/ticketing/calendarList";
 	}
+	
 	//public String ticketingSchedulePost( HttpSession session) {
 	@PostMapping("/ticketing/schedule")
 	public String ticketingSchedulePost(Model model, String date, HttpSession session) {		
-		log.info("/ticketing/calendar/post");
+		log.info("/ticketing/schedule/post : " + date);
 		
 		session.setAttribute("date", date);
 		
+		MovieVO movieVO = (MovieVO)session.getAttribute("movieVO");
 		ScreenVO screenVO = (ScreenVO)session.getAttribute("screenVO");
 		
-		List<ScheduleVO> scheduleList = ticketingService.getScheduleList(1, screenVO.getSc_num());
-		
-		for (int i = 0; i < scheduleList.size(); ++i) {
-		
-			log.info(scheduleList.get(i));
-		}
+		List<ScheduleVO> scheduleList = ticketingService.getScheduleList(movieVO.getMo_num(), screenVO.getSc_num());
 		
 		model.addAttribute("scheduleList", scheduleList);
 		return "/ticketing/scheduleList";
 	}
 
 	@PostMapping("/ticketing/seat")
-	public String ticketingSeatPost(Model model, ScheduleVO scheduleVO, HttpSession session) {
-		log.info("/ticketing/seat/Post : " + scheduleVO);
-		
+	public String ticketingSeatPost(Model model, Integer sd_num, HttpSession session) {
+		log.info("/ticketing/seat/Post : " + sd_num);
+
+		ScheduleVO scheduleVO = ticketingService.getSchedule(sd_num);
 		session.setAttribute("scheduleVO", scheduleVO);
 		
 		ScreenVO screenVO = (ScreenVO)session.getAttribute("screenVO");
@@ -129,9 +130,11 @@ public class TicketingController {
 		
 		ScreenVO screenVO = (ScreenVO)session.getAttribute("screenVO");
 		ScheduleVO scheduleVO = (ScheduleVO)session.getAttribute("scheduleVO");
+		String date = (String)session.getAttribute("date");
 		
 		model.addAttribute("screenVO", screenVO);
 		model.addAttribute("scheduleVO", scheduleVO);
+		model.addAttribute("date", date);
 		model.addAttribute("selectedSeatList", selectedSeatList);
 		return "/ticketing/payment";
 	}
@@ -147,16 +150,32 @@ public class TicketingController {
 		if(prevUrl != null && !prevUrl.contains("/complete")) {
 			request.getSession().setAttribute("prevUrl", prevUrl);
 		}
-		
+
+		MessageDTO message;
 		if(user != null) {
-			//ticketingService.insertTicket();
-			model.addAttribute("msg", "결제에 성공 했습니다.");
-			model.addAttribute("url", "/");
+			String[] selectedSeatList = (String[])session.getAttribute("selectedSeatList");
+			ScreenVO screenVO = (ScreenVO)session.getAttribute("screenVO");
+			ScheduleVO scheduleVO = (ScheduleVO)session.getAttribute("scheduleVO");
+			
+			TicketingVO ticketingVO = new TicketingVO();
+			ticketingVO.setTi_me_id(user.getMe_id());
+			ticketingVO.setTi_sd_num(scheduleVO.getSd_num());
+			ticketingService.insertTicketing(ticketingVO);
+			
+			for (String se_name : selectedSeatList) {
+				SeatVO seatVO = new SeatVO(0, se_name, screenVO.getSc_num());
+				seatVO = ticketingService.getSeat(seatVO);
+				
+				ticketingService.insertTicketing_list(ticketingVO.getTi_num(), seatVO.getSe_num());
+			}
+
+			session.removeAttribute("prevUrl");
+			message = new MessageDTO("/", "결제에 성공 했습니다.");
 		}else {
-			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-			model.addAttribute("url", "/guest/login");
+			message = new MessageDTO("/guest/login", "로그인이 필요한 서비스입니다.");
 		}
-		
+
+		model.addAttribute("message", message);
 		return "/main/message";
 	}
 }

@@ -7,6 +7,19 @@
 		select * from movie
 	</select>
 	<select id="selectMovie" resultType="MovieVO">
-		select * from movie where mo_num = #{mo_num}
+		select * from movie  where mo_num = #{mo_num}
 	</select>
+	<update id="updateMovie">
+        UPDATE movie
+        SET mo_title = #{mo_title},
+            mo_content = #{mo_content},
+            mo_date = #{mo_date},
+            mo_time = #{mo_time},
+            mo_age = #{mo_age}
+        WHERE mo_num = #{mo_num}
+    </update>
+    <insert id="insertMovie">
+    	insert into movie (mo_image, mo_title, mo_date, mo_time, mo_age, mo_content, mo_genre)
+    	values(#{mo.mo_image}, #{mo.mo_title}, #{mo.mo_date}, #{mo.mo_time}, #{mo.mo_age}, #{mo.mo_content}, #{mo.mo_genre})
+    </insert>
 </mapper>

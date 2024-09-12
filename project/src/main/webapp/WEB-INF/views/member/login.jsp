@@ -4,20 +4,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+<style type="text/css">
+.task {
+	margin-top: 60px;
+	margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
 	<h1>로그인</h1>
-	<form action="<c:url value="/guest/login"/>" method="post" id="form">
-		<div class="form-group">
-			<label for="id">아이디:</label>
-			<input type="text" class="form-control" id="id" name="me_id">
-		</div>
-		<div class="form-group">
-			<label for="pw">비번:</label>
-			<input type="password" class="form-control" id="pw" name="me_pw">
-		</div>
-		<button type="submit" class="btn btn-outline-success col-12">로그인</button>
-	</form>
+	<div class="task">
+		<form action="<c:url value="/guest/login"/>" method="post" id="form">
+			<div class="form-group">
+				<label for="id">아이디:</label>
+				<input type="text" class="form-control" id="id" name="me_id">
+			</div>
+			<div class="form-group">
+				<label for="pw">비번:</label>
+				<input type="password" class="form-control" id="pw" name="me_pw">
+			</div>
+			<button type="submit" class="btn btn-outline-success col-12">로그인</button>
+		</form>
+	</div>
 </body>
 </html>

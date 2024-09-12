@@ -8,6 +8,92 @@
 <meta charset="UTF-8">
 <title>영화 상세</title>
 <style type="text/css">
+/*     .navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    height: 80px;
+}
+.navbar .logo a {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333333;
+    text-decoration: none;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .menu a {
+    color: #333333;
+    text-decoration: none;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.navbar .menu a:hover {
+    color: #e71a0f;
+}
+.navbar a {
+    color: #333333;
+    text-decoration: none;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #e71a0f;
+}
+// 버튼 스타일 
+.footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    //position: fixed; //고정 위치 속성 삭제 
+    position: relative;
+    transform: translateY(-100%);
+    bottom: 0; //고정 위치 관련 속성 삭제
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.team-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.team-list li {
+    display: inline;
+    margin: 0 10px;
+    font-size: 1em;
+    font-weight: normal;
+}
+ */
 /* 기본적인 레이아웃 */
 #contents_new23 {
     width: 100%;
@@ -210,61 +296,77 @@
 </style>
 </head>
 <body>
+ <body>
 
     <div id="contents_new23">
-        <form id="movieForm" method="POST" action="/updateMovieInfo">
-	    	<div id="contents" class="contents_movie_detail">
-	    		<div class="poster_info">
-	    			<img alt="영화상세" src="${movie.mo_image }">
-	    		</div>
-	    		<div class="detail_top_wrap new22">
-	    			<div class="tit_info">
-	    				<strong id="movieTitle">${movie.mo_title }</strong>
-	    			</div>
-	    			<ul class="mov_info1">
-	    				<li><span id="releaseDate"><fmt:formatDate value="${movie.mo_date }" pattern="yyyy-MM-dd"/></span> <!-- 개봉일 --></li>
-	    				<li><span id="duration">${movie.mo_time }</span> "분" <!-- 상영시간 --></li>
-	    				<li><span id="ageRating">${movie.mo_age }</span> "세" <!-- 시청 가능 연령 --></li>
-	    			</ul>
-	    			<div class="txtarea_box movdetailtxt" id="movieDescription">
-	    				<div class="txtarea">
-	    					<span>${movie.mo_content }
-	    					</span>
-	    				</div>
-	    			</div>
-	  				<div style="text-align: right;">
-	    				<a href="#" class="button">예매하기</a>
-	    			</div>
-	    		</div>
-	    	</div>	
-	  		<div class="tab_con">
-	  			<div class="innerfull gray">
-	  				<div class="inner980">
-	  					<div class="movi_tab_info1">
-	  						<h4 class="tit_info_type1">영화정보</h4>
-	  						<ul class="detail_info2">
-                                <li><em>장르</em><span id="genre">액션</span></li>
-                                <li><em>감독</em><span id="director">감독이름</span></li>
-                                <li><em>출연</em><span id="actors">배우이름</span></li>
-	  						</ul>
-	  						<!-- 영화정보 관리자 로그인 시에만 보이는 수정 버튼 -->
-	  						 <div style="text-align: right;">
-	       							<button id="editInfoBtn" class="button">정보 수정</button>
-	       							<button type="submit" id="saveInfoBtn" class="button" style="display:none;">저장하기</button>
-	    						<c:if test="${isAdmin}">
-	    						</c:if>
-	    					</div>
-	  					</div>
-	  				</div>
-	  			</div>
-	  		</div>
-  		</form>
-   </div>
-   
-    <!-- JavaScript 코드 -->
+     <form id="movieForm" method="POST" action="<c:url value="/main/moviedetail/update"/>">
+    	<div id="contents" class="contents_movie_detail">
+    		<div class="poster_info">
+    			<img alt="영화상세" src="${movie.mo_image }">
+    		</div>
+    		<div class="detail_top_wrap new22">
+    			<div class="tit_info">
+    				<h1 id="mo_num" style="display: none">${movie.mo_num }</h1>
+    				<strong id="mo_title">${movie.mo_title }</strong>
+    			</div>
+    			<ul class="mov_info1">
+    				<li><span id="mo_date"><fmt:formatDate value="${movie.mo_date }" pattern="yyyy-MM-dd"/></span> <!-- 개봉일 --></li>
+    				<li><span id="mo_time">${movie.mo_time }</span> "분" <!-- 상영시간 --></li>
+    				<li><span id="mo_age">${movie.mo_age }</span> "세" <!-- 시청 가능 연령 --></li>
+    			</ul>
+    			<div class="txtarea_box movdetailtxt" id="mo_content">
+    				<div class="txtarea">
+    					<span>${movie.mo_content }
+    					</span>
+    				</div>
+    			</div>
+  				<div style="text-align: right;">
+					<form action="<c:url value="/ticketing/screen"/>"method="post">
+	  					<c:if test="${user != null }">
+			          	  <button type="submit" class="button" >예매하기</button>>
+   						</c:if>
+			           	<input type="hidden" name="mo_num" value="${movie.mo_num}">
+					</form>
+   				</div>
+    		</div>
+    	</div>
+  		<div class="tab_con">
+  			<div class="innerfull gray">
+  				<div class="inner980">
+  					<div class="movi_tab_info1">
+  						<h4 class="tit_info_type1">영화정보</h4>
+  						<ul class="detail_info2">
+  							<li><em>장르</em><span id="mo_genre">${movie.mo_genre}</span></li>
+  							<li><em>출연</em><span id="ch_name">배우</span></li>
+  						</ul>
+  						<!-- 영화정보 관리자 로그인 시에만 보이는 수정 버튼 -->
+  						 <div style="text-align: right;">
+                                    <button id="editInfoBtn" class="button" type="button">정보 수정</button>
+                                    <button type="submit" id="saveInfoBtn" class="button" style="display:none;">저장하기</button>
+    						<c:if test="${isAdmin}">
+    						</c:if>
+    					</div>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</form>
+  </div>
+   <!-- <footer class="footer">
+        <div class="footer-content">
+            <p>Team Members:</p>
+            <ul class="team-list">
+                <li>성재경</li>
+                <li>이현호</li>
+                <li>장경민</li>
+                <li>박광균</li>
+            </ul>
+        </div>
+    </footer> -->
+        <!-- JavaScript 코드 -->
     <script>
     $(document).ready(function() {
-        const fieldsToEdit = ['movieTitle', 'releaseDate', 'duration', 'ageRating', 'movieDescription', 'genre', 'director', 'actors'];
+        const fieldsToEdit = ['mo_num','mo_title', 'mo_date', 'mo_time', 'mo_age', 'mo_content'];
 
         // 수정 버튼 클릭 시
         $('#editBtn, #editInfoBtn').on('click', function() {
@@ -272,32 +374,39 @@
                 const $element = $('#' + id);
                 const currentValue = $element.text();
 
-                if (id === 'movieDescription') {
-                    $element.html(`<textarea name="${id}" rows="5">${currentValue}</textarea>`);
+                if (id === 'mo_content') {
+                    $element.html(`<textarea name="\${id}" rows="5">\${currentValue}</textarea>`);
                 } else {
-                    $element.html(`<input type="text" name="${id}" value="${currentValue}" />`);
+                    $element.html(`<input type="text" name="\${id}" value="\${currentValue}" />`);
                 }
             });
 
-            $('#editBtn, #editInfoBtn').hide();
             $('#saveBtn, #saveInfoBtn').show();
+            $('#editBtn, #editInfoBtn').hide();
         });
 
         // 폼 서브밋 처리
         $('#movieForm').on('submit', function(event) {
             event.preventDefault(); // 폼 제출 방지
-
-            const formData = $(this).serialize(); // 폼 데이터 직렬화
-
+         
+            const movie = {}; // movie 객체 정의
+            fieldsToEdit.forEach(function(id) {
+                const $element = $(`[name="\${id}"]`);
+                movie[id] = $element.val(); // 각 필드의 값을 JSON 객체에 저장
+            });
+            
+            console.log(movie);
+            
             // Ajax 요청을 통해 서버로 전송
             $.ajax({
                 type: 'POST',
-                url: '/updateMovieInfo',
-                data: formData,
+                url: '<c:url value="/main/moviedetail/update"/>',
+                data: JSON.stringify(movie), // JSON 문자열 전송
+                contentType: 'application/json; charset=utf-8', // 요청 헤더 설정
                 success: function(response) {
                     fieldsToEdit.forEach(function(id) {
                         const $element = $('#' + id);
-                        const newValue = $(`[name="${id}"]`).val();
+                        const newValue = $(`[name="\${id}"]`).val();
                         $element.text(newValue); // 입력된 값을 텍스트로 변환
                     });
 
@@ -311,6 +420,6 @@
             });
         });
     });
-    </script>
+    </script> 
 </body>
 </html>

@@ -21,9 +21,14 @@
     --calendar-prevnext-date-color: #484848
 }
 
-* {
+.task_1 * {
     padding: 0;
     margin: 0;
+}
+
+.task_1 {
+	margin-top: 100px;
+	margin-bottom: 20px;
 }
 
 .calendar {
@@ -171,7 +176,7 @@
 		<div class="calendar"></div>
 	</div>
 	
-	<div>
+	<div class="d-flex justify-content-center">
 		<form action="<c:url value="/ticketing/schedule"/>" class="form-seat" method="post">
 			<input type="hidden" id="postValue" name="date" value="">
 			<button class="btn btn-dark">버튼</button>
@@ -356,7 +361,7 @@
 	          	let todayDate = document.querySelector(".calendar .calendar-today-date");
 	          	let postValue = document.getElementById('postValue');
 	          	
-	          	postValue.value = `'\${changedYear}-\${changedMonth}-\${day}'`;
+	          	postValue.value = `\${changedYear}-\${changedMonth}-\${day}`;
 	        }
 	      },
 	      hideSelectday: function () {

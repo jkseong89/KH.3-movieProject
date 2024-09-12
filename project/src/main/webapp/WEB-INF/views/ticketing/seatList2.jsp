@@ -7,28 +7,38 @@
 <style type="text/css">
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
-.task_4 * {
+.top-container * {
 	box-sizing: border-box;
 }
 
-.task_4 {
-	margin-top: 100px;
-	margin-bottom: 20px;
-}	
-
-.task_4 ,.task_5 {	
-	display: flex;
-	justify-content: center;
-}
-
-.task_5 {
-	height: 500px;
-	width: 500px;
+.top-container {
 	background-color: #242333;
 	color: #fff;
-	align-items: center;
+	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 500px;
+	width: 500px;
 	font-family: 'Lato', sans-serif;
+	margin-top: 100px;
+	margin-bottom: 20px;
+}
+
+.movie-container {
+	margin: 20px 0;
+}
+
+.movie-container select {
+	background-color: #fff;
+	border: 0;
+	border-radius: 5px;
+	font-size: 14px;
+	margin-left: 10px;
+	padding: 5px 15px 5px 15px;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
 .container {
@@ -115,43 +125,50 @@ p.text span {
 </style>
 </head>
 <body>
-	<div class="task_4">
-		<div class="task_5">		
-			<ul class="showcase">
-				<li>
-					<div class="seat"></div> <small>N/A</small>
-				</li>
-				<li>
-					<div class="seat selected"></div> <small>Selected</small>
-				</li>
-				<li>
-					<div class="seat occupied"></div> <small>Occupied</small>
-				</li>	
-			</ul>
-		
-			<div class="container">
-				<div class="screen"></div>
-				<form action="<c:url value="/ticketing/payment"/>" class="form-seat" method="post" enctype="multipart/form-data">
-					<c:forEach var="seatList" items="${seatList_byLine}">
-						<div class="row d-flex justify-content-center">
-							<c:forEach var="seat" items="${seatList}">
-								<div class="seat" id="${seat.se_name}"></div>
-							</c:forEach>
-						</div>
-					</c:forEach>
-		
-					<p class="text d-flex justify-content-center">
-						You have selected 
-						<span id="count">0</span> 
-	<!-- 					seats for a price of 
-						$<span id="total">0</span> -->
-				    </p>
-	    
-	    			<div class="d-flex justify-content-center">
-						<button class="btn btn-dark">버튼</button>
-	    			</div>
-				</form>
-			</div>
+	<div class="top-container d-flex justify-content-center">
+<!-- 		<div class="movie-container">
+			<label>Pick a movie:</label> <select id="movie">
+				<option value="10">Avengers: Endgame ($10)</option>
+				<option value="12">Joker ($12)</option>
+				<option value="8">Toy Story 4 ($8)</option>
+				<option value="9">The Lion King ($9)</option>
+			</select>
+		</div> -->
+	
+		<ul class="showcase">
+			<li>
+				<div class="seat"></div> <small>N/A</small>
+			</li>
+			<li>
+				<div class="seat selected"></div> <small>Selected</small>
+			</li>
+			<li>
+				<div class="seat occupied"></div> <small>Occupied</small>
+			</li>	
+		</ul>
+	
+		<div class="container">
+			<div class="screen"></div>
+			<form action="<c:url value="/ticketing/payment"/>" class="form-seat" method="post" enctype="multipart/form-data">
+				<c:forEach var="seatList" items="${seatList_byLine}">
+					<div class="row d-flex justify-content-center">
+						<c:forEach var="seat" items="${seatList}">
+							<div class="seat" id="${seat.se_name}"></div>
+						</c:forEach>
+					</div>
+				</c:forEach>
+	
+				<p class="text d-flex justify-content-center">
+					You have selected 
+					<span id="count">0</span> 
+<!-- 					seats for a price of 
+					$<span id="total">0</span> -->
+			    </p>
+    
+    			<div class="d-flex justify-content-center">
+					<button class="btn btn-dark">버튼</button>
+    			</div>
+			</form>
 		</div>
     </div>
 	
@@ -160,6 +177,17 @@ p.text span {
 		const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 		const count = document.getElementById('count');
 		const total = document.getElementById('total');
+		const movieSelect = document.getElementById('movie');
+	
+		populateUI();
+	
+		let ticketPrice = +movieSelect.value;
+	
+		// Save selected movie index and price
+		function setMovieData(movieIndex, moviePrice) {
+		  localStorage.setItem('selectedMovieIndex', movieIndex);
+		  localStorage.setItem('selectedMoviePrice', moviePrice);
+		}
 	
 		// Update total and count
 		function updateSelectedCount() {
@@ -167,11 +195,41 @@ p.text span {
 	
 		  const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
 	
+		  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+	
 		  const selectedSeatsCount = selectedSeats.length;
 	
 		  count.innerText = selectedSeatsCount;
 		  total.innerText = selectedSeatsCount * ticketPrice;
+		  
+		  setMovieData(movieSelect.selectedIndex, movieSelect.value);
 		}
+	
+		// Get data from localstorage and populate UI
+		function populateUI() {
+		  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+	
+		  if (selectedSeats !== null && selectedSeats.length > 0) {
+		    seats.forEach((seat, index) => {
+		      if (selectedSeats.indexOf(index) > -1) {
+		        seat.classList.add('selected');
+		      }
+		    });
+		  }
+	
+		  const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+	
+		  if (selectedMovieIndex !== null) {
+		    movieSelect.selectedIndex = selectedMovieIndex;
+		  }
+		}
+	
+		// Movie select event
+		movieSelect.addEventListener('change', e => {
+		  ticketPrice =+ e.target.value;
+		  setMovieData(e.target.selectedIndex, e.target.value);
+		  updateSelectedCount();
+		});
 	
 		// Seat click event
 		container.addEventListener('click', e => {

@@ -77,3 +77,6 @@ CREATE TABLE `ticketing_list` (
 ALTER TABLE `moviedb_team3`.`member` 
 CHANGE COLUMN `me_authority` `me_authority` VARCHAR(5) NULL DEFAULT 'USER' ;
 
+ALTER TABLE `moviedb_team3`.`movie` 
+ADD COLUMN `mo_image` LONGBLOB NULL DEFAULT NULL AFTER `mo_genre`;
+

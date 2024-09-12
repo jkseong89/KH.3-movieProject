@@ -5,6 +5,10 @@
 <html>
 <head>
 <style type="text/css">
+.task_3 {
+	margin-top: 100px;
+	margin-bottom: 20px;
+}
 .cardWrap {
 	width: 30em;
 	margin: 3em auto;
@@ -155,6 +159,10 @@ h1 span {
 		#343434, 56px 0 0 1px #343434, 59px 0 0 1px #343434, 64px 0 0 1px #343434, 68px 0 0 1px #343434, 72px 0 0 1px #343434,
 		74px 0 0 1px #343434, 77px 0 0 1px #343434, 81px 0 0 1px #343434
 }
+
+.btn_custom {
+	margin-bottom: 120px;
+}
 </style>
 </head>
 <body>
@@ -163,7 +171,7 @@ h1 span {
 			<div class="cardWrap">
 				<div class="card cardLeft">
 					<h1 class="font-weight-bold">
-						Startup <span>Cinema</span>
+						영화관 <span>${screenVO.sc_name}</span>
 					</h1>
 					<div class="title">
 						<h2 class="font-weight-bold">How I met your Mother</h2>
@@ -175,11 +183,11 @@ h1 span {
 					</div>
 					<div class="clearfix">
 						<div class="seat">
-							<h2 class="font-weight-bold">156</h2>
+							<h2 class="font-weight-bold">${selectSeat}</h2>
 							<span>seat</span>
 						</div>
 						<div class="time">
-							<h2 class="font-weight-bold">12:00</h2>
+							<h2 class="font-weight-bold">${date} ${scheduleVO.sd_time}</h2>
 							<span>time</span>
 						</div>
 					</div>
@@ -188,7 +196,7 @@ h1 span {
 				<div class="card cardRight">
 					<div class="eye"></div>
 					<div class="number">
-						<h3 class="font-weight-bold">156</h3>
+						<h3 class="font-weight-bold">${selectSeat}</h3>
 						<span>seat</span>
 					</div>
 					<div class="barcode"></div>
@@ -197,7 +205,7 @@ h1 span {
 		</c:forEach>
 	</div>
 	<div class="d-flex justify-content-center">
-		<div class="btn btn-dark">
+		<div class="btn btn-dark btn_custom">
 			<a href="<c:url value="/ticketing/complete"/>" class="btn btn-dark">여기가 마지막</a>
 		</div>
 	</div>

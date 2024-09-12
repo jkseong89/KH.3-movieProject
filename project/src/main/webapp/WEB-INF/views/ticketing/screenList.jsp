@@ -5,11 +5,16 @@
 <html>
 <head>
 <style type="text/css">
-.task_2 {
-	margin: 0;
+.task_2 * {
 	padding: 0;
+	margin: 0;
 	box-sizing: border-box;
 	font-family: sans-serif;
+}
+
+.task_2 {
+	margin-top: 100px;
+	margin-bottom: 20px;
 }
 
 .box {
@@ -78,7 +83,7 @@
 </style>
 </head>
 <body>
-	<div class="task_2">
+	<div class="task_2 d-flex justify-content-center">
 		<div class="box">
 			<h2>상영관 선택</h2>
 			<ul class="ul-tag">

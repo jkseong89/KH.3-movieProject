@@ -12,5 +12,10 @@ public interface MovieDAO {
 
 	MovieVO selectMovie(@Param("mo_num")int mo_num);
 
+	void updateMovie(MovieVO movie);
+
+	void insertMovie(@Param("mo")MovieVO movie);
+
+
 
 }

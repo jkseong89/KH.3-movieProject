@@ -25,4 +25,18 @@ public class MovieService {
 	}
 
 	
+
+	public void updateMovie(MovieVO movie) {
+		movieDao.updateMovie(movie);
+		
+	}
+
+
+	public void insertMovie(MovieVO movie) {
+		movieDao.insertMovie(movie);
+		
+	}
+
+
+
 }
