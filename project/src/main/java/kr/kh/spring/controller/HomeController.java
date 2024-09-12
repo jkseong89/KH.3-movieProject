@@ -36,7 +36,7 @@ public class HomeController {
 	MovieService movieService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
 		List<MovieVO> list = movieService.getMovieList();
 		model.addAttribute("list", list);
 		return "/main/home";
@@ -85,12 +85,18 @@ public class HomeController {
 	public String loginPost(Model model, MemberVO member, HttpSession session) {
 		log.info("/guest/login/post");
 		MemberVO user = memberService.login(member);
+		
 		MessageDTO message;
 		
-		if(user != null) {
-			message = new MessageDTO("/", "로그인을 성공 했습니다.");
-		}else {
-			message = new MessageDTO("/guest/login", "로그인을 실패 했습니다.");
+		if (user.getMe_authority().equals("ADMIN")) {
+			
+			message = new MessageDTO("/", "관리자 로그인에 성공 했습니다.");
+		} else {
+			if(user != null) {
+				message = new MessageDTO("/", "로그인을 성공 했습니다.");
+			}else {
+				message = new MessageDTO("/guest/login", "로그인을 실패 했습니다.");
+			}
 		}
 		
 		model.addAttribute("user", user);
@@ -111,8 +117,12 @@ public class HomeController {
 	}
 	
 	@GetMapping("/main/moviedetail")
-	public String movieDetail(Model model, @RequestParam("mo_num") int mo_num) {
+	public String movieDetail(Model model, @RequestParam("mo_num") int mo_num, HttpSession session) {
 		MovieVO movie = movieService.selectMovie(mo_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+
+		model.addAttribute("user", user);
 		model.addAttribute("movie", movie);
 		return "/main/moviedetail";
 	}

@@ -429,3 +429,5 @@ INSERT INTO `ticketing_list` values
 (null, 6, 6),
 (null, 7, 7),
 (null, 8, 8);
+
+INSERT INTO `moviedb_team3`.`member` (`me_id`, `me_pw`, `me_authority`) VALUES ('admin', 'admin', 'ADMIN');

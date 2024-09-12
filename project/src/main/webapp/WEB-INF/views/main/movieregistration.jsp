@@ -53,6 +53,10 @@ body {
     margin-bottom: 10px;
     display: block;
 }
+
+.btn-custom {
+	margin-bottom: 120px;
+}
     </style>
 </head>
 <body>
@@ -90,7 +94,7 @@ body {
             </div>
             
             <div class="form-group d-flex justify-content-end">
-    			<button type="submit" class="btn btn-primary">저장</button>
+    			<button type="submit" class="btn btn-primary btn-custom">저장</button>
 			</div>
         </form>
     </div>

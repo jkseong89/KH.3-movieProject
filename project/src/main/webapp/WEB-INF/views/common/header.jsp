@@ -74,8 +74,8 @@
 	        	<a href="<c:url value="/member/logout"/>">로그아웃</a>
 		    </c:if>    
     		<!-- 관리자 로그인 시 영화 등록 버튼 표시 -->
+   			<c:if test="${user.me_authority == 'ADMIN'}">
        			<a href="<c:url value="/main/movieregistration"/>">영화 등록</a>
-   			<c:if test="${isAdmin}">
    			</c:if>
 		</div>
     </nav>

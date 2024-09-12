@@ -321,12 +321,10 @@
     				</div>
     			</div>
   				<div style="text-align: right;">
-					<form action="<c:url value="/ticketing/screen"/>"method="post">
-	  					<c:if test="${user != null }">
-			          	  <button type="submit" class="button" >예매하기</button>>
+	  					<c:if test="${user != null}">
+			          	  	<button type="submit" class="button" >예매하기</button>
    						</c:if>
 			           	<input type="hidden" name="mo_num" value="${movie.mo_num}">
-					</form>
    				</div>
     		</div>
     	</div>
@@ -342,8 +340,8 @@
   						<!-- 영화정보 관리자 로그인 시에만 보이는 수정 버튼 -->
   						 <div style="text-align: right;">
                                     <button id="editInfoBtn" class="button" type="button">정보 수정</button>
-                                    <button type="submit" id="saveInfoBtn" class="button" style="display:none;">저장하기</button>
-    						<c:if test="${isAdmin}">
+                                    <button type="submit" id="saveInfoBtn" class="button saveInfoBtn" style="display:none;">저장하기</button>
+    						<c:if test="${user.me_authority == 'ADMIN'}">
     						</c:if>
     					</div>
   					</div>
@@ -388,36 +386,40 @@
         // 폼 서브밋 처리
         $('#movieForm').on('submit', function(event) {
             event.preventDefault(); // 폼 제출 방지
-         
-            const movie = {}; // movie 객체 정의
-            fieldsToEdit.forEach(function(id) {
-                const $element = $(`[name="\${id}"]`);
-                movie[id] = $element.val(); // 각 필드의 값을 JSON 객체에 저장
-            });
             
-            console.log(movie);
+            console.log(event.target.classList.contains('saveInfoBtn'));
             
-            // Ajax 요청을 통해 서버로 전송
-            $.ajax({
-                type: 'POST',
-                url: '<c:url value="/main/moviedetail/update"/>',
-                data: JSON.stringify(movie), // JSON 문자열 전송
-                contentType: 'application/json; charset=utf-8', // 요청 헤더 설정
-                success: function(response) {
-                    fieldsToEdit.forEach(function(id) {
-                        const $element = $('#' + id);
-                        const newValue = $(`[name="\${id}"]`).val();
-                        $element.text(newValue); // 입력된 값을 텍스트로 변환
-                    });
+            if(event.target.id == 'saveInfoBtn') {                
+                const movie = {}; // movie 객체 정의
+                fieldsToEdit.forEach(function(id) {
+                    const $element = $(`[name="\${id}"]`);
+                    movie[id] = $element.val(); // 각 필드의 값을 JSON 객체에 저장
+                });
+                
+                console.log(movie);
+                
+                // Ajax 요청을 통해 서버로 전송
+                $.ajax({
+                    type: 'POST',
+                    url: '<c:url value="/main/moviedetail/update"/>',
+                    data: JSON.stringify(movie), // JSON 문자열 전송
+                    contentType: 'application/json; charset=utf-8', // 요청 헤더 설정
+                    success: function(response) {
+                        fieldsToEdit.forEach(function(id) {
+                            const $element = $('#' + id);
+                            const newValue = $(`[name="\${id}"]`).val();
+                            $element.text(newValue); // 입력된 값을 텍스트로 변환
+                        });
 
-                    $('#editBtn, #editInfoBtn').show();
-                    $('#saveBtn, #saveInfoBtn').hide();
-                },
-                error: function(err) {
-                    console.error("Error:", err);
-                    alert("저장 중 오류가 발생했습니다.");
-                }
-            });
+                        $('#editBtn, #editInfoBtn').show();
+                        $('#saveBtn, #saveInfoBtn').hide();
+                    },
+                    error: function(err) {
+                        console.error("Error:", err);
+                        alert("저장 중 오류가 발생했습니다.");
+                    }
+                });
+            }
         });
     });
     </script> 
