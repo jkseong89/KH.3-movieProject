@@ -67,16 +67,20 @@
 				<a href="<c:url value="/guest/signup"/>">회원가입</a>
 	        	<a href="<c:url value="/guest/login"/>">로그인</a>
 			</c:if> 
-   		 	<!-- 로그인 상태에서 로그아웃 버튼 표시 -->
 
+   		 	<!-- 로그인 상태에서 로그아웃 버튼 표시 -->
 		    <c:if test="${user != null }">
-	        	<a href="<c:url value="/refund/ticketingList"/>">환불</a>
+		    	<c:choose>
+		    		<c:when test="${user.me_authority != 'ADMIN'}">
+	        			<a href="<c:url value="/refund/ticketingList"/>">환불</a>
+		    		</c:when>
+		    		<c:otherwise>
+	       				<a href="<c:url value="/main/movieregistration"/>">영화 등록</a>
+		    		</c:otherwise>
+		    	</c:choose>
+	   			
 	        	<a href="<c:url value="/member/logout"/>">로그아웃</a>
-		    </c:if>    
-    		<!-- 관리자 로그인 시 영화 등록 버튼 표시 -->
-   			<c:if test="${user.me_authority == 'ADMIN'}">
-       			<a href="<c:url value="/main/movieregistration"/>">영화 등록</a>
-   			</c:if>
+		    </c:if>
 		</div>
     </nav>
 </body>

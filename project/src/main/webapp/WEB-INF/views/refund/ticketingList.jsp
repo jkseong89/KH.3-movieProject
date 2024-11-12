@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<div class="task_3">
-		<a href="<c:url value="/"/>" class="btn btn-dark">뒤로가기?</a>
+		<a href="<c:url value="/"/>" class="btn btn-dark">뒤로가기</a>
 	</div>
 	<script type="text/javascript">	
 		<script>

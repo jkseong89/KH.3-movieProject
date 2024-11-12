@@ -52,6 +52,8 @@ public class RefundController {
 				SeatVO seatVO = new SeatVO(ticketing_listVO.getTl_se_num(), "", 0);
 				seatVO = ticketingService.getSeat(seatVO);
 				
+				log.info(movieVO.getMo_title());
+				
 				ticketingData.add(new TicketingData(ticketingVO.getTi_num()
 												, ticketing_listVO.getTl_num()
 												, ticketingVO.getTi_me_id()

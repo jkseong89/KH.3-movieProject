@@ -127,11 +127,15 @@ public class TicketingController {
 		log.info("/ticketing/payment/post : " + selectedSeatList.length);
 
 		session.setAttribute("selectedSeatList", selectedSeatList);
-		
+
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		MovieVO movieVO = (MovieVO)session.getAttribute("movieVO");
 		ScreenVO screenVO = (ScreenVO)session.getAttribute("screenVO");
 		ScheduleVO scheduleVO = (ScheduleVO)session.getAttribute("scheduleVO");
 		String date = (String)session.getAttribute("date");
-		
+
+		model.addAttribute("user", user);
+		model.addAttribute("movieVO", movieVO);
 		model.addAttribute("screenVO", screenVO);
 		model.addAttribute("scheduleVO", scheduleVO);
 		model.addAttribute("date", date);

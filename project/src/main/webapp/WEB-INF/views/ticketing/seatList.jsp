@@ -148,7 +148,7 @@ p.text span {
 				    </p>
 	    
 	    			<div class="d-flex justify-content-center">
-						<button class="btn btn-dark">버튼</button>
+						<button class="btn btn-dark">좌석 선택 완료</button>
 	    			</div>
 				</form>
 			</div>

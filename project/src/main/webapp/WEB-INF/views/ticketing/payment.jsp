@@ -174,11 +174,11 @@ h1 span {
 						영화관 <span>${screenVO.sc_name}</span>
 					</h1>
 					<div class="title">
-						<h2 class="font-weight-bold">How I met your Mother</h2>
+						<h2 class="font-weight-bold">${movieVO.mo_title}</h2>
 						<span>movie</span>
 					</div>
 					<div class="name">
-						<h2 class="font-weight-bold">Vladimir Kudinov</h2>
+						<h2 class="font-weight-bold">${user.me_id}</h2>
 						<span>name</span>
 					</div>
 					<div class="clearfix">
@@ -206,7 +206,7 @@ h1 span {
 	</div>
 	<div class="d-flex justify-content-center">
 		<div class="btn btn-dark btn_custom">
-			<a href="<c:url value="/ticketing/complete"/>" class="btn btn-dark">여기가 마지막</a>
+			<a href="<c:url value="/ticketing/complete"/>" class="btn btn-dark">결제</a>
 		</div>
 	</div>
 </body>

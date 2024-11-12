@@ -320,12 +320,12 @@
     					</span>
     				</div>
     			</div>
-  				<div style="text-align: right;">
+<%--   				<div style="text-align: right;">
 	  					<c:if test="${user != null}">
 			          	  	<button type="submit" class="button" >예매하기</button>
    						</c:if>
 			           	<input type="hidden" name="mo_num" value="${movie.mo_num}">
-   				</div>
+   				</div> --%>
     		</div>
     	</div>
   		<div class="tab_con">
@@ -387,39 +387,35 @@
         $('#movieForm').on('submit', function(event) {
             event.preventDefault(); // 폼 제출 방지
             
-            console.log(event.target.classList.contains('saveInfoBtn'));
+            const movie = {}; // movie 객체 정의
+            fieldsToEdit.forEach(function(id) {
+                const $element = $(`[name="\${id}"]`);
+                movie[id] = $element.val(); // 각 필드의 값을 JSON 객체에 저장
+            });
             
-            if(event.target.id == 'saveInfoBtn') {                
-                const movie = {}; // movie 객체 정의
-                fieldsToEdit.forEach(function(id) {
-                    const $element = $(`[name="\${id}"]`);
-                    movie[id] = $element.val(); // 각 필드의 값을 JSON 객체에 저장
-                });
-                
-                console.log(movie);
-                
-                // Ajax 요청을 통해 서버로 전송
-                $.ajax({
-                    type: 'POST',
-                    url: '<c:url value="/main/moviedetail/update"/>',
-                    data: JSON.stringify(movie), // JSON 문자열 전송
-                    contentType: 'application/json; charset=utf-8', // 요청 헤더 설정
-                    success: function(response) {
-                        fieldsToEdit.forEach(function(id) {
-                            const $element = $('#' + id);
-                            const newValue = $(`[name="\${id}"]`).val();
-                            $element.text(newValue); // 입력된 값을 텍스트로 변환
-                        });
+            console.log(movie);
+            
+            // Ajax 요청을 통해 서버로 전송
+            $.ajax({
+                type: 'POST',
+                url: '<c:url value="/main/moviedetail/update"/>',
+                data: JSON.stringify(movie), // JSON 문자열 전송
+                contentType: 'application/json; charset=utf-8', // 요청 헤더 설정
+                success: function(response) {
+                    fieldsToEdit.forEach(function(id) {
+                        const $element = $('#' + id);
+                        const newValue = $(`[name="\${id}"]`).val();
+                        $element.text(newValue); // 입력된 값을 텍스트로 변환
+                    });
 
-                        $('#editBtn, #editInfoBtn').show();
-                        $('#saveBtn, #saveInfoBtn').hide();
-                    },
-                    error: function(err) {
-                        console.error("Error:", err);
-                        alert("저장 중 오류가 발생했습니다.");
-                    }
-                });
-            }
+                    $('#editBtn, #editInfoBtn').show();
+                    $('#saveBtn, #saveInfoBtn').hide();
+                },
+                error: function(err) {
+                    console.error("Error:", err);
+                    alert("저장 중 오류가 발생했습니다.");
+                }
+            });
         });
     });
     </script> 
